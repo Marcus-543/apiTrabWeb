@@ -2,17 +2,17 @@ const { createService,
         findAllService,
         updateService,
         removeService
-} = require('../services/carros.service.js')
+} = require('../services/clientes.service.js')
 
 const findAll = async (req, res) => {
     try {
-        const carros = await findAllService()
-        if (carros.length == 0) {
+        const clientes = await findAllService()
+        if (clientes.length == 0) {
             res.status(400).send({
-                message: "nenhum carro cadastrado"
+                message: "nenhum cliente cadastrado"
             })
         }else{
-            res.status(201).send(carros)
+            res.status(201).send(clientes)
         }
 
     } catch (err) {
@@ -24,8 +24,8 @@ const findAll = async (req, res) => {
 
 const findOne = async (req, res) => {
     try {
-        const carro = req.carro
-        res.status(201).send(carro)
+        const cliente = req.cliente
+        res.status(201).send(cliente)
 
     } catch (err) {
         res.status(500).send({
@@ -36,16 +36,17 @@ const findOne = async (req, res) => {
 
 const create = async (req, res) => {
     try {
-        const carro = await createService(req.body)
-        if (carro.insertId == 0) {
+        const cliente = await createService(req.body)
+        if (cliente.insertId == 0) {
             res.status(400).send({
-                message: "Erro ao cadastar o carro"
+                message: "Erro ao cadastar o cliente"
             })
+
         }else{
             res.status(201).send({
-                    id: carro.insertId,
-                    placa: req.body.placa,
-                    cor: req.body.cor
+                    id: cliente.insertId,
+                    nome: req.body.nome,
+                    cpf: req.body.cpf
                 }
             )
         }
@@ -60,16 +61,16 @@ const create = async (req, res) => {
 const update = async (req, res) => {
     try {
         const id = req.id
-        const carro = await updateService(id, req.body)
-        if (carro.changedRows == 0) {
+        const cliente = await updateService(id, req.body)
+        if (cliente.changedRows == 0) {
             res.status(400).send({
-                message: "Erro ao atualizar o carro"
+                message: "Erro ao atualizar o cliente"
             })
         }else{
             res.status(201).send({
                     id,
-                    placa: req.body.placa,
-                    cor: req.body.cor
+                    nome: req.body.nome,
+                    cpf: req.body.cpf
                 }
             )
         }
@@ -84,15 +85,15 @@ const update = async (req, res) => {
 const remove = async (req, res) => {
     try {
         const id = req.id
-        const carroDeletado = req.carro
+        const clienteDeletado = req.cliente
 
-        const carro = await removeService(id)
-        if (carro.affectedRows == 0) {
+        const cliente = await removeService(id)
+        if (cliente.affectedRows == 0) {
             res.status(400).send({
-                message: "erro ao remover carro"
+                message: "erro ao remover cliente"
             })
         }else{
-            res.status(201).send(carroDeletado)
+            res.status(201).send(clienteDeletado)
         }
     
     } catch (err) {
@@ -103,9 +104,9 @@ const remove = async (req, res) => {
 }
 
 module.exports = {
-	findAll,
+    findAll,
     findOne,
-	create,
+    create,
     update,
     remove
 }
