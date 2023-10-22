@@ -5,9 +5,9 @@ const { validaCampos, validaCpf, validaId } = require('../middlewares/clientes.m
 const clientesRouter = Router()
 
 clientesRouter.get('/', findAll)
-clientesRouter.get('/:id', validaId, findOne)
+clientesRouter.get('/:idCliente', validaId, findOne)
 clientesRouter.post('/', validaCampos, validaCpf, create)
-clientesRouter.put('/:id', validaCampos, validaId, validaCpf, update)
-clientesRouter.delete('/:id', validaId, remove)
+clientesRouter.put('/:idCliente', validaCampos, validaId, validaCpf, update)
+clientesRouter.delete('/:idCliente', validaId, remove)
 
 module.exports = clientesRouter

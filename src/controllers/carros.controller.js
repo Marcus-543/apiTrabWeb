@@ -59,7 +59,7 @@ const create = async (req, res) => {
 
 const update = async (req, res) => {
     try {
-        const id = req.id
+        const id = req.idCarro
         const carro = await updateService(id, req.body)
         if (carro.changedRows == 0) {
             res.status(400).send({
@@ -83,7 +83,7 @@ const update = async (req, res) => {
 
 const remove = async (req, res) => {
     try {
-        const id = req.id
+        const id = req.idCarro
         const carroDeletado = req.carro
 
         const carro = await removeService(id)

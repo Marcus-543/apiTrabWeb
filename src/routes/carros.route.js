@@ -5,9 +5,9 @@ const { validaCampos, validaPlaca, validaId } = require('../middlewares/carros.m
 const carrosRouter = Router()
 
 carrosRouter.get('/', findAll)
-carrosRouter.get('/:id', validaId, findOne)
+carrosRouter.get('/:idCarro', validaId, findOne)
 carrosRouter.post('/', validaCampos, validaPlaca, create)
-carrosRouter.put('/:id', validaCampos, validaId, validaPlaca, update)
-carrosRouter.delete('/:id', validaId, remove)
+carrosRouter.put('/:idCarro', validaCampos, validaId, validaPlaca, update)
+carrosRouter.delete('/:idCarro', validaId, remove)
 
 module.exports = carrosRouter

@@ -35,14 +35,20 @@ const validaPlaca = async (req, res, next) => {
 
 const validaId = async (req, res, next) => {
     try {
-        const id = req.params.id
+        let id = 0
+        if (req.params.idCarro) {
+            id = req.params.idCarro
+        }else{
+            id = req.body.idCarro
+        }
+
         const carro = await findOneByIdService(id)
         if (carro.length == 0) {
             return res.status(404).send({
                 message: "carro nao cadastrado"
             })
         }
-        req.id = id
+        req.idCarro = id
         req.carro = carro[0]
         next()
     } catch (err) {

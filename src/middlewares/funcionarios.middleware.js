@@ -1,4 +1,4 @@
-const { findOneByCpfService, findOneByIdService } = require('../services/clientes.service.js')
+const { findOneByCpfService, findOneByIdService } = require('../services/funcionarios.service.js')
 
 const validaCampos = (req, res, next) => {
     try {
@@ -9,7 +9,7 @@ const validaCampos = (req, res, next) => {
             })
         }
         next()
-    } catch (err) {
+    } catch (err) { 
         res.status(500).send({
             message: err.message
         })
@@ -19,10 +19,10 @@ const validaCampos = (req, res, next) => {
 const validaCpf = async (req, res, next) => {
     try {
         const cpf = req.body.cpf
-        const cliente = await findOneByCpfService(cpf)
-        if (cliente.length != 0) {
+        const funcionario = await findOneByCpfService(cpf)
+        if (funcionario.length != 0) {
             return res.status(400).send({
-                message: "cliente ja cadastrado"
+                message: "funcionario ja cadastrado"
             })
         }
         next()
@@ -36,20 +36,20 @@ const validaCpf = async (req, res, next) => {
 const validaId = async (req, res, next) => {
     try {
         let id = 0
-        if (req.params.idCliente) {
-            id = req.params.idCliente
+        if (req.params.idFuncionario) {
+            id = req.params.idFuncionario
         }else{
-            id = req.body.idCliente
+            id = req.body.idFuncionario
         }
 
-        const cliente = await findOneByIdService(id)
-        if (cliente.length == 0) {
+        const funcionario = await findOneByIdService(id)
+        if (funcionario.length == 0) {
             return res.status(404).send({
-                message: "cliente nao cadastrado"
+                message: "funcionario nao cadastrado"
             })
         }
-        req.idCliente = id
-        req.cliente = cliente[0]
+        req.idFuncionario = id
+        req.funcionario = funcionario[0]
         next()
     } catch (err) {
         res.status(500).send({

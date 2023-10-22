@@ -2,17 +2,17 @@ const { createService,
         findAllService,
         updateService,
         removeService
-} = require('../services/clientes.service.js')
+} = require('../services/funcionarios.service.js')
 
 const findAll = async (req, res) => {
     try {
-        const clientes = await findAllService()
-        if (clientes.length == 0) {
+        const funcionarios = await findAllService()
+        if (funcionarios.length == 0) {
             res.status(400).send({
-                message: "nenhum cliente cadastrado"
+                message: "nenhum funcionario cadastrado"
             })
         }else{
-            res.status(201).send(clientes)
+            res.status(201).send(funcionarios)
         }
 
     } catch (err) {
@@ -24,8 +24,8 @@ const findAll = async (req, res) => {
 
 const findOne = async (req, res) => {
     try {
-        const cliente = req.cliente
-        res.status(201).send(cliente)
+        const funcionario = req.funcionario
+        res.status(201).send(funcionario)
 
     } catch (err) {
         res.status(500).send({
@@ -36,15 +36,15 @@ const findOne = async (req, res) => {
 
 const create = async (req, res) => {
     try {
-        const cliente = await createService(req.body)
-        if (cliente.insertId == 0) {
+        const funcionario = await createService(req.body)
+        if (funcionario.insertId == 0) {
             res.status(400).send({
-                message: "Erro ao cadastar o cliente"
+                message: "Erro ao cadastar o funcionario"
             })
 
         }else{
             res.status(201).send({
-                    id: cliente.insertId,
+                    id: funcionario.insertId,
                     nome: req.body.nome,
                     cpf: req.body.cpf
                 }
@@ -60,11 +60,11 @@ const create = async (req, res) => {
 
 const update = async (req, res) => {
     try {
-        const id = req.idCliente
-        const cliente = await updateService(id, req.body)
-        if (cliente.changedRows == 0) {
+        const id = req.idFuncionario
+        const funcionario = await updateService(id, req.body)
+        if (funcionario.changedRows == 0) {
             res.status(400).send({
-                message: "Erro ao atualizar o cliente"
+                message: "Erro ao atualizar o funcionario"
             })
         }else{
             res.status(201).send({
@@ -84,16 +84,16 @@ const update = async (req, res) => {
 
 const remove = async (req, res) => {
     try {
-        const id = req.idCliente
-        const clienteDeletado = req.cliente
+        const id = req.idFuncionario
+        const funcionarioDeletado = req.funcionario
 
-        const cliente = await removeService(id)
-        if (cliente.affectedRows == 0) {
+        const funcionario = await removeService(id)
+        if (funcionario.affectedRows == 0) {
             res.status(400).send({
-                message: "erro ao remover cliente"
+                message: "erro ao remover funcionario"
             })
         }else{
-            res.status(201).send(clienteDeletado)
+            res.status(201).send(funcionarioDeletado)
         }
     
     } catch (err) {
